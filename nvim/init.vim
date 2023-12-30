@@ -32,12 +32,10 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
   \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-lua require('colorscheme')
 lua require('basic')
 lua require('keybindings')
 lua require('plugins')
 lua require('plugin-config.nvim-tree')
-lua require('plugin-config.bufferline')
 lua require('plugin-config.lualine')
 lua require('plugin-config.telescope')
 lua require('plugin-config.dashboard')
@@ -51,6 +49,3 @@ lua require('plugin-config.nerdCommentor')
 " lsp
 " lua require('lsp.setup')
 "lua require('lsp.cmp')
-
-
-

@@ -1,0 +1,89 @@
+# ansible-playbook complete_macos_setup_playbook.yml --ask-become-pass
+
+---
+- name: MacOS Setup Playbook
+  hosts: localhost
+  become: no
+  gather_facts: no
+
+  tasks:
+    - name: Install ZSH
+      homebrew:
+        name: zsh
+        state: latest
+
+    - name: Install git
+      homebrew:
+        name: git
+        state: latest
+
+    - name: Install gitui
+      homebrew:
+        name: gitui
+        state: latest
+
+    - name: Install neovim
+      homebrew:
+        name: neovim
+
+    - name: Set ZSH as the default shell
+      command: chsh -s /bin/zsh
+      become: yes
+
+    - name: Install Oh My ZSH
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      args:
+        creates: "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+
+    - name: Clone zsh-syntax-highlighting plugin
+      git:
+        repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+        clone: yes
+        update: yes
+
+    - name: Clone zsh-autosuggestions plugin
+      git:
+        repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+        dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        clone: yes
+        update: yes
+
+    - name: Update .zshrc file with new plugin configuration
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        regexp: '^plugins=\(.*\)$'
+        line: 'plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions history-substring-search)'
+        state: present
+
+    - name: Source the .zshrc file
+      shell: source ~/.zshrc
+      args:
+        executable: /bin/zsh
+
+    - name: Copy Neovim configuration folder
+      copy:
+        src: "~/Downloads/my_dev_config-master/nvim"
+        dest: "{{ lookup('env', 'HOME') }}/.config"
+        remote_src: no
+
+    - name: Clone Packer for Neovim
+      git:
+        repo: 'https://github.com/wbthomason/packer.nvim'
+        dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+        version: "master"
+        clone: yes
+        update: yes
+
+    # 可能会运行比较久，可以自行打开neovim run :PackerInstall
+    - name: Install plugins using Packer
+      shell: |
+        nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerInstall'
+      args:
+        executable: /bin/bash
+
+    - name: Compile Packer configuration
+      shell: |
+        nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerCompile'
+      args:
+        executable: /bin/bash
