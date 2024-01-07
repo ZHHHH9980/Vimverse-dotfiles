@@ -26,6 +26,11 @@
       homebrew:
         name: neovim
 
+    - name: Install ranger via Homebrew
+      homebrew:
+        name: ranger
+        state: present
+
     - name: Set ZSH as the default shell
       command: chsh -s /bin/zsh
       become: yes
