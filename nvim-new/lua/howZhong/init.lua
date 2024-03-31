@@ -1,8 +1,8 @@
-
-print('load settings successfully!')
 require('howZhong.remap')
 require('howZhong.settings')
 require('howZhong.packer')
 require('howZhong.colortheme')
-
-
+require('howZhong.lualine')
+require('howZhong.nvim-tree')
+require('howZhong.bufferline')
+require('howZhong.copilot')

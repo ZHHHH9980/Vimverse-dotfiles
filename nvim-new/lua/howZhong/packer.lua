@@ -8,40 +8,73 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
-  'nvim-telescope/telescope.nvim', tag = '0.1.6',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    'nvim-telescope/telescope.nvim', tag = '0.1.6',
+    requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
-  use (
+  use(
     'nvim-treesitter/nvim-treesitter',
     {
       commit = 'f197a15',
       run = ':TSUpdate'
     }
-      )
+  )
 
   -- color theme
   use 'sainnhe/everforest'
 
-  -- git diff 
-  use "sindrets/diffview.nvim" 
+  -- git tools
+  use "lewis6991/gitsigns.nvim"
 
-use {
+  -- bottom tools
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+
+
+  -- 左侧文件树 & 图标
+  use 'nvim-tree/nvim-web-devicons'
+  use 'nvim-tree/nvim-tree.lua'
+
+  -- 顶部 tab
+  use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
+
+  -- 自动匹配括号
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup()
+    end
+  }
+
+  -- copilot
+  use 'github/copilot.vim'
+
+  use {
     'VonHeikemen/lsp-zero.nvim',
-      branch = 'v3.x',
-        requires = {
-              --- Uncomment the two plugins below if you want to manage the language servers from neovim
-                  -- {'williamboman/mason.nvim'},
-                      -- {'williamboman/mason-lspconfig.nvim'},
+    branch = 'v3.x',
+    requires = {
+      --- Uncomment the two plugins below if you want to manage the language servers from neovim
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
 
-                          -- LSP Support
-                              {'neovim/nvim-lspconfig'},
-                                  -- Autocompletion
-                                      {'hrsh7th/nvim-cmp'},
-                                          {'hrsh7th/cmp-nvim-lsp'},
-                                              {'L3MON4D3/LuaSnip'},
-                                                }
-                                              }
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'L3MON4D3/LuaSnip' },
+    }
+  }
 
-
-  end)
+  -- 糅合 ts server prettier
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use {
+    'jayp0521/mason-null-ls.nvim',
+    config = function()
+      require("mason-null-ls").setup()
+    end,
+    requires = { "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim" }
+  }
+end)
