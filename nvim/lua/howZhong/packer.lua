@@ -32,6 +32,8 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
+  -- replace
+  use 'vim-scripts/ReplaceWithRegister'
 
   -- 左侧文件树 & 图标
   use 'nvim-tree/nvim-web-devicons'

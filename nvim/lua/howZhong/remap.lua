@@ -51,7 +51,7 @@ vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-v>', '<C-r>+', { noremap = true, silent = true })
 
 -- visual mode , replace selection with default register
-vim.api.nvim_set_keymap('v', 'r', '"_dP', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', 'r', '"_dP', { noremap = true, silent = true })
 
 -- nd -> delete and copy
 -- d -> only delete
@@ -61,3 +61,12 @@ vim.api.nvim_set_keymap('n', 'd', '"_d', { noremap = true, silent = true })
 -- the same as above
 vim.api.nvim_set_keymap('v', 'nd', 'd', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'd', '"_d', { noremap = true, silent = true })
+
+-- nc -> delete and cut
+-- c -> only delete
+vim.api.nvim_set_keymap('n', 'nc', 'c', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'c', '"_c', { noremap = true, silent = true })
+
+-- the same as above
+vim.api.nvim_set_keymap('v', 'nc', 'c', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'c', '"_c', { noremap = true, silent = true })

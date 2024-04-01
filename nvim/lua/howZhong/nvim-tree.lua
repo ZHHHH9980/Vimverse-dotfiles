@@ -52,14 +52,15 @@ end
 
 vim.keymap.set("n", "<C-b>", nvim_tree_toggle_focused, { noremap = true, silent = true })
 
+-- ctrl + j 聚焦 nvim-tree
+vim.api.nvim_set_keymap('n', '<C-j>', ':NvimTreeFocus<CR>', { noremap = true, silent = true })
+
+-- ctrl + l 聚焦右侧面板
+vim.api.nvim_set_keymap('n', '<C-l>', ':wincmd l<CR>', { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap('n', 'Q', ':NvimTreeClose<CR>:q<CR>', { noremap = true, silent = true })
 
--- 退出以后自动关闭，不保留NvimTree面板
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    vim.cmd("NvimTreeClose")
-  end,
-})
+
 
 
 -- 自动打开 nvim-tree

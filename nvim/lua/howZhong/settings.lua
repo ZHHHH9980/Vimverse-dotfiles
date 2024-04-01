@@ -3,10 +3,13 @@ vim.cmd('autocmd BufEnter * set formatoptions-=cro')
 vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
 
 -- 设置 Tab 为 2 个空格
-vim.opt.tabstop = 2        -- 一个 Tab 显示为两个空格宽度
-vim.opt.shiftwidth = 2     -- 缩进级别的宽度
-vim.opt.softtabstop = 2    -- 在编辑时，Tab/退格键的宽度
-vim.opt.expandtab = true   -- 将 Tab 转换为空格
+vim.opt.tabstop = 2      -- 一个 Tab 显示为两个空格宽度
+vim.opt.shiftwidth = 2   -- 缩进级别的宽度
+vim.opt.softtabstop = 2  -- 在编辑时，Tab/退格键的宽度
+vim.opt.expandtab = true -- 将 Tab 转换为空格
+
+-- 设置命令等待时间为 1000 毫秒（1 秒）
+vim.opt.timeoutlen = 500
 
 vim.opt.guicursor = ""
 
@@ -53,14 +56,14 @@ vim.opt.guicursor:append("r-cr:hor20")
 
 -- 定义一个函数来设置 Visual 模式的高亮样式
 function SetVisualHighlight()
-      -- 设置 Visual 模式的高亮组
-          vim.cmd([[
+  -- 设置 Visual 模式的高亮组
+  vim.cmd([[
                   hi Visual guibg=#FF8C00 guifg=white
                       ]])
-                    end
+end
 
-                    -- 在 VimEnter 自动命令中调用 SetVisualHighlight 函数
-                    vim.cmd([[
+-- 在 VimEnter 自动命令中调用 SetVisualHighlight 函数
+vim.cmd([[
                         augroup CustomVisualHighlight
                                 autocmd!
                                         autocmd VimEnter * lua SetVisualHighlight()
