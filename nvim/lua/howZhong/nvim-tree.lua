@@ -16,8 +16,11 @@ require("nvim-web-devicons")
 -- empty setup using defaults
 require("nvim-tree").setup({
   view = {
-    relativenumber = true
-  }
+    relativenumber = true,
+  },
+
+  -- 其他视图配置...
+
 })
 
 
@@ -59,13 +62,3 @@ vim.api.nvim_set_keymap('n', '<C-j>', ':NvimTreeFocus<CR>', { noremap = true, si
 vim.api.nvim_set_keymap('n', '<C-l>', ':wincmd l<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', 'Q', ':NvimTreeClose<CR>:q<CR>', { noremap = true, silent = true })
-
-
-
-
--- 自动打开 nvim-tree
-vim.api.nvim_create_autocmd({ 'VimEnter' }, {
-  callback = function()
-    require('nvim-tree.api').tree.open()
-  end
-})
