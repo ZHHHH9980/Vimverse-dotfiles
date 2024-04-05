@@ -60,6 +60,7 @@ return require('packer').startup(function(use)
 
   use 'easymotion/vim-easymotion'
 
+
   -- replace '' to ""
   use({
     "kylechui/nvim-surround",
@@ -70,6 +71,18 @@ return require('packer').startup(function(use)
       })
     end
   })
+
+  -- 启动页
+  use {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        -- config
+      }
+    end,
+    requires = { 'nvim-tree/nvim-web-devicons' }
+  }
 
   use {
     'VonHeikemen/lsp-zero.nvim',

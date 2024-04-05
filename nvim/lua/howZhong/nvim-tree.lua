@@ -17,11 +17,17 @@ require("nvim-web-devicons")
 require("nvim-tree").setup({
   view = {
     relativenumber = true,
+    -- 其他视图配置...
   },
-
-  -- 其他视图配置...
-
+  update_cwd = true,   -- 更新当前工作目录到nvim-tree的根节点
+  update_focused_file = {
+    enable = true,     -- 启用定位到当前文件
+    update_cwd = true, -- 更新当前工作目录到当前文件的目录
+    ignore_list = {}   -- 忽略列表
+  },
+  -- 其他配置...
 })
+
 
 
 -- 1. 如果聚焦，关闭 nvim-tree
