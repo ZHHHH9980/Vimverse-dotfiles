@@ -1,3 +1,6 @@
+-- with locatorjs
+-- hammerspoon://openFile?path=${filePath}&line=${line}&column=${column}
+
 hs.urlevent.bind("openFile", function(eventName, params)
   hs.printf("Received event: " .. eventName)
   hs.printf("Params: " .. hs.inspect(params))
@@ -40,3 +43,4 @@ hs.urlevent.bind("openFile", function(eventName, params)
     hs.printf("Invalid parameters, not executing command")
   end
 end)
+
