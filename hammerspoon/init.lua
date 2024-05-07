@@ -1,11 +1,6 @@
--- with locatorjs
--- hammerspoon://openFile?path=${filePath}&line=${line}&column=${column}
-
--- 设置 Neovim 可执行文件的路径
-local nvimPath = "/opt/homebrew/bin/nvim"
-
+-- Handler for "openFile" event
 hs.urlevent.bind("openFile", function(eventName, params)
-  hs.printf("openFile event received")
+  hs.printf("Received openFile event")
 
   local filePath = params["path"]
   local line = tonumber(params["line"])
@@ -15,56 +10,45 @@ hs.urlevent.bind("openFile", function(eventName, params)
   hs.printf("Line: %d", line)
   hs.printf("Column: %d", column)
 
-  if filePath ~= nil and line ~= nil and column ~= nil then
-    hs.printf("Neovim path: %s", nvimPath)
-
-    -- 使用 Lua 的内置函数获取目录路径
+  if filePath and line and column then
+    -- Extract directory path from the file path
     local dirPath = string.match(filePath, "(.*[/\\])")
-
     if not dirPath then
-      hs.printf("Failed to get directory path")
+      hs.alert.show("Failed to get directory path")
       return
     end
-
     hs.printf("Directory path: %s", dirPath)
 
-    local command = string.format("cd %q && %s %q +'execute \"normal! %dG%d|\"'",
-      dirPath, nvimPath, filePath, line, column)
+    -- Construct the Neovim command
+    local command = string.format("cd %s && nvim %s +'normal! %dG%d|'", dirPath, filePath, line, column)
+    hs.printf("Neovim command: %s", command)
 
-    hs.printf("Executing command: %s", command)
-
-    local scriptFile = os.tmpname()
-    hs.printf("Temporary script file: %s", scriptFile)
-
-    local file = io.open(scriptFile, "w")
-    if file then
-      file:write(command)
-      file:close()
-      hs.printf("Command written to script file")
-    else
-      hs.printf("Failed to create script file")
-    end
-
-    local appleScript = [[
+    -- Execute the command in iTerm2 using AppleScript
+    local script = string.format([[
       tell application "iTerm2"
-          activate
-          tell current window to create tab with default profile
-          tell current session of current window to write text "bash ]] .. scriptFile .. [["
+        activate
+        tell current window to create tab with default profile
+        tell current session of current window
+          write text "%s"
+        end tell
       end tell
-    ]]
+    ]], command)
 
-    hs.printf("Executing AppleScript: %s", appleScript)
+    -- Print the generated AppleScript
+    hs.printf("Generated AppleScript:")
+    hs.printf("%s", script)
 
-    local success, result, output = hs.osascript.applescript(appleScript)
+    local success, output = hs.applescript.applescript(script)
     if success then
-      hs.printf("Command executed successfully.")
+      hs.alert.show("Command sent to iTerm2")
     else
-      hs.printf("Failed to execute command.")
-      hs.printf("Error: " .. hs.inspect(output))
+      hs.alert.show("Failed to send command to iTerm2")
+      hs.printf("Error: %s", output)
     end
-
-    hs.timer.doAfter(1, function() os.remove(scriptFile) end)
   else
-    hs.printf("Invalid parameters, not executing command")
+    hs.alert.show("Invalid parameters for opening file.")
   end
 end)
+
+-- Debugging: Print a message to confirm that the script has loaded
+hs.alert.show("Hammerspoon script loaded")
