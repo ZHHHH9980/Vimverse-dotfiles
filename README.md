@@ -1,4 +1,4 @@
-# my dev configuration
+# My dev configuration
 
 ## Frontend 
 
