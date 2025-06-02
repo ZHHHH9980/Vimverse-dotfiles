@@ -1440,11 +1440,5 @@
       "type": "command",
       "command": "editor.action.rename"
     }
-  ],
-  "json.schemas": [],
-  "tabnine.experimentalAutoImports": true,
-  "diffEditor.ignoreTrimWhitespace": false,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "window.zoomLevel": -2
+  ]
 }
