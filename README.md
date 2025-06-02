@@ -1,7 +1,7 @@
-# My dev configuration
+# Vimverse-dotfiles 🚀
 
-## Frontend 
+## 📖 Overview
 
-- [LocatorJS with Neovim](https://github.com/ZHHHH9980/my_dev_config/blob/master/hammerspoon/README.md)
+This repository contains my personal dotfiles configuration, primarily focused on creating an optimal Vim/Neovim development environment.
 
-Effortlessly navigate from your web application to Neovim on macOS with this locatorjs integration, enabling click-to-component functionality for enhanced developer productivity.
+
