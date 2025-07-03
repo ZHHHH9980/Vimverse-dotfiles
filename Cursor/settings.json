@@ -1410,15 +1410,33 @@
         },
         {
           "key": "i",
-          "name": "insert selection into chat",
+          "name": "Insert selection into chat",
           "type": "command",
           "command": "aichat.insertselectionintochat"
         },
         {
           "key": "n",
-          "name": "new chat",
+          "name": "New chat",
           "type": "command",
           "command": "composer.newAgentChat"
+        },
+        {
+          "key": "c",
+          "name": "Close chat",
+          "type": "command",
+          "command": "aichat.close-sidebar"
+        },
+        {
+          "key": "f",
+          "name": "Quick fix",
+          "type": "command",
+          "command": "editor.action.quickFix"
+        },,
+        {
+          "key": "s",
+          "name": "Show chat history",
+          "type": "command",
+          "command": "composer.showComposerHistory"
         }
       ]
     },
