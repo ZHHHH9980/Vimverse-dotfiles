@@ -1431,7 +1431,7 @@
           "name": "Quick fix",
           "type": "command",
           "command": "editor.action.quickFix"
-        },,
+        },
         {
           "key": "s",
           "name": "Show chat history",
